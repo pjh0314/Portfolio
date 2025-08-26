@@ -4,7 +4,7 @@ A modern, responsive personal portfolio website built with React, showcasing my 
 
 ## 🚀 Live Demo
 
-[View Live Portfolio](https://your-portfolio-url.com) *(링크를 실제 배포 URL로 교체해주세요)*
+[View Live Portfolio](https://joonhyungpark.netlify.app) 
 
 ## ✨ Features
 
