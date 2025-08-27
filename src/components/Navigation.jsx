@@ -44,8 +44,12 @@ export default function Navigation({ toggleTheme, dark }) {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 relative">
-        <div className="text-xl font-bold z-10 text-blue-800 dark:text-blue-400">
-          JHP
+        <div className="z-10">
+          <img
+            src="/portfolio logo.JPG"
+            alt="JHP Portfolio"
+            className="h-8 w-auto"
+          />
         </div>
 
         <div className="hidden md:flex flex-1 justify-center space-x-4 relative">
@@ -75,11 +79,10 @@ export default function Navigation({ toggleTheme, dark }) {
                 className="relative z-10 px-4 py-2 rounded-lg font-semibold transition-colors duration-300"
               >
                 <span
-                  className={`${
-                    activeSection === item.id
+                  className={`${activeSection === item.id
                       ? "text-black dark:text-white"
                       : "text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </span>
@@ -97,9 +100,9 @@ export default function Navigation({ toggleTheme, dark }) {
           </button>
         </div>
 
-      
+
         <div className="md:hidden flex items-center space-x-2 z-10">
-      
+
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -107,14 +110,14 @@ export default function Navigation({ toggleTheme, dark }) {
             {!dark ? <Moon size={20} /> : <Sun size={20} />}
           </button>
 
-   
+
           <button onClick={() => setMenuOpen(!menuOpen)} aria-label="메뉴 열기/닫기">
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-     
+
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -127,12 +130,11 @@ export default function Navigation({ toggleTheme, dark }) {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => handleScroll(item.id)} 
-                  className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${
-                    activeSection === item.id
+                  onClick={() => handleScroll(item.id)}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${activeSection === item.id
                       ? "bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
                       : "text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </button>
