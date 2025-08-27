@@ -46,7 +46,7 @@ export default function Navigation({ toggleTheme, dark }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 relative">
         <div className="z-10">
           <img
-            src="/portfolio logo.JPG"
+            src={`${process.env.PUBLIC_URL}/JHP.png`}
             alt="JHP Portfolio"
             className="h-8 w-auto"
           />
@@ -80,8 +80,8 @@ export default function Navigation({ toggleTheme, dark }) {
               >
                 <span
                   className={`${activeSection === item.id
-                      ? "text-black dark:text-white"
-                      : "text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
+                    ? "text-black dark:text-white"
+                    : "text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
                     }`}
                 >
                   {item.name}
@@ -132,8 +132,8 @@ export default function Navigation({ toggleTheme, dark }) {
                   key={item.id}
                   onClick={() => handleScroll(item.id)}
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-300 ${activeSection === item.id
-                      ? "bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
-                      : "text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    ? "bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
+                    : "text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
                     }`}
                 >
                   {item.name}
