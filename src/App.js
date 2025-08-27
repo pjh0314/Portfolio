@@ -9,7 +9,7 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import ContactMe from "./components/ContactMe";
 
-import "./index.css";
+import "./styles/index.css";
 
 function App() {
   const [dark, setDark] = useState(false);
