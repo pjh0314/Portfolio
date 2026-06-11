@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 
 const navItems = [
   { name: "Home", id: "home" },
@@ -14,6 +14,8 @@ const navItems = [
 export default function Navigation({ toggleTheme, dark }) {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,6 +45,10 @@ export default function Navigation({ toggleTheme, dark }) {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 shadow-md">
+      <motion.div
+        className="absolute bottom-0 left-0 h-0.5 bg-blue-500 origin-left w-full"
+        style={{ scaleX }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 relative">
         <div className="z-10">
           <img

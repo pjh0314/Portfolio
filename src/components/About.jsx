@@ -24,7 +24,7 @@ export default function About() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full px-6 sm:px-12 md:px-20 lg:px-36 py-16 gap-12 md:gap-16 text-center md:text-left">
-      
+
       <motion.div
         className="max-w-3xl"
         initial={{ opacity: 0, y: 20 }}
@@ -36,10 +36,10 @@ export default function About() {
           About Me
         </h2>
         <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-700 dark:text-gray-300 mb-4">
-          Hi, I’m <span className="font-semibold text-blue-600 dark:text-blue-400">Joonhyung Park</span>, a computer science student and software engineer passionate about turning ideas into impactful digital experiences. My focus is on building applications that are not only efficient but also intuitive and human-centered. 
+          Hi, I'm <span className="font-semibold text-blue-600 dark:text-blue-400">Joonhyung Park</span>, a CS student at UMD and software engineer who enjoys building things that work well and feel good to use. I care a lot about both the engineering side and how something actually looks and feels to the person using it.
         </p>
         <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-700 dark:text-gray-300">
-          I’m fascinated by the intersection of technology and human experience — how well-designed software can enhance everyday life. Constantly curious, I dive into emerging technologies and AI-driven solutions to stay ahead, while enjoying collaboration in teams that value creativity and innovation.
+          I'm always picking up something new, whether it's a framework, a side project, or whatever tech rabbit hole I fall into that week. I like working with people and building things that go beyond just getting the job done.
         </p>
       </motion.div>
 

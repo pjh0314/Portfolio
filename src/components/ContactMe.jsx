@@ -1,7 +1,32 @@
-import React from "react";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { Link } from "react-scroll";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setStatus("loading");
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        { name: form.name, email: form.email, message: form.message },
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-6 py-16 flex flex-col justify-between transition-colors duration-500">
       <div className="max-w-6xl w-full mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -38,24 +63,39 @@ export default function Contact() {
           </div>
         </div>
 
-        <form className="flex-1 flex flex-col gap-4 sm:gap-5 border border-gray-200 dark:border-gray-700 p-6 sm:p-8 rounded-2xl transition-colors duration-500">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-4 sm:gap-5 border border-gray-200 dark:border-gray-700 p-6 sm:p-8 rounded-2xl transition-colors duration-500">
           <input
             type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
             placeholder="Your Name"
             className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-400 transition duration-300"
           />
           <input
             type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
             placeholder="Your Email"
             className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-400 transition duration-300"
           />
           <textarea
+            name="message"
+            value={form.message}
+            onChange={handleChange}
             placeholder="Your Message"
             className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 h-36 resize-none text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-400 transition duration-300"
           />
-          <button className="bg-blue-800 dark:bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 dark:hover:bg-blue-500 transition duration-300">
-            Submit
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="bg-blue-800 dark:bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 dark:hover:bg-blue-500 transition duration-300 disabled:opacity-60"
+          >
+            {status === "loading" ? "Sending..." : "Submit"}
           </button>
+          {status === "success" && <p className="text-green-500 text-sm text-center">Message sent!</p>}
+          {status === "error" && <p className="text-red-500 text-sm text-center">Something went wrong. Try again.</p>}
         </form>
       </div>
 
@@ -73,25 +113,21 @@ export default function Contact() {
             <div>
               <h3 className="font-semibold mb-3">Sitemap</h3>
               <ul className="flex flex-col gap-2">
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">Home</li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">About</li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">Skills</li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">Projects</li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">Contact</li>
+                {["home","about","skills","projects","contact"].map((id) => (
+                  <li key={id}>
+                    <Link to={id} smooth duration={600} offset={-64} className="capitalize hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition">
+                      {id.charAt(0).toUpperCase() + id.slice(1)}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3">Socials</h3>
               <ul className="flex flex-col gap-2">
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition flex items-center gap-2">
-                  <FaGithub /> GitHub
-                </li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition flex items-center gap-2">
-                  <FaLinkedin /> LinkedIn
-                </li>
-                <li className="hover:text-blue-800 dark:hover:text-blue-400 cursor-pointer transition flex items-center gap-2">
-                  <FaInstagram /> Instagram
-                </li>
+                <li><a href="https://github.com/pjh0314" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-800 dark:hover:text-blue-400 transition"><FaGithub /> GitHub</a></li>
+                <li><a href="https://linkedin.com/in/joonhyung-park-716b9b266" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-800 dark:hover:text-blue-400 transition"><FaLinkedin /> LinkedIn</a></li>
+                <li><a href="https://instagram.com/jxxn_etincexxe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-800 dark:hover:text-blue-400 transition"><FaInstagram /> Instagram</a></li>
               </ul>
             </div>
           </div>

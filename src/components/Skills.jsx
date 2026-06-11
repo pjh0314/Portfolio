@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPython, FaJava, FaReact, FaNodeJs, FaGitAlt, FaHtml5, FaCss3Alt } from "react-icons/fa";
+import { FaPython, FaJava, FaReact, FaNodeJs, FaGitAlt, FaHtml5, FaCss3Alt, FaDocker } from "react-icons/fa";
 import { SiC, SiCplusplus, SiDart, SiOcaml, SiFlutter, SiFirebase, SiMongodb, SiJavascript, SiRust, SiRuby, SiSwift, SiTailwindcss } from "react-icons/si";
 import { motion } from "framer-motion";
 
@@ -31,6 +31,7 @@ export default function Skills() {
     ],
     "Dev Tools": [
       { name: "Git", icon: <FaGitAlt size={50} /> },
+      { name: "Docker", icon: <FaDocker size={50} /> },
     ],
   };
 

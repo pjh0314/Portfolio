@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 
-export default function ProjectCard({ title, description, tech, image, link }) {
+export default function ProjectCard({ title, description, tech, image, link, onClick }) {
   return (
     <motion.div
-      className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-md p-6 w-full md:w-80 flex flex-col items-center gap-4 hover:scale-105 transition-transform duration-300"
+      onClick={onClick}
+      className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-md p-6 w-full md:w-80 flex flex-col items-center gap-4 hover:scale-105 transition-transform duration-300 cursor-pointer"
     >
      
-      <div className="w-32 h-32 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden">
+      <div className="w-32 h-32 flex items-center justify-center overflow-hidden">
         <img src={image} alt={title} className="w-full h-full object-contain" />
       </div>
 

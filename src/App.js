@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from './components/Navigation';
 import Section from "./components/Section";
+import Cursor from "./components/Cursor";
 
 import Home from "./components/Home";
 import About from "./components/About";
@@ -17,7 +18,8 @@ function App() {
 
   return (
     <div className={dark ? "dark" : ""}>
-      <div className="bg-white text-black dark:bg-gray-900 dark:text-gray-100 transition-colors duration-700 min-h-screen flex flex-col">
+      <Cursor dark={dark} />
+      <div className="bg-white text-black dark:bg-gray-900 dark:text-gray-100 transition-colors duration-700 min-h-screen flex flex-col cursor-none">
         {/* 네비게이션 */}
         <Navbar toggleTheme={toggleTheme} dark={dark} />
 
