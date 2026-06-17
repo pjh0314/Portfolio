@@ -6,6 +6,34 @@ import Heart from "lucide-react/dist/esm/icons/heart.js";
 import MessageCircle from "lucide-react/dist/esm/icons/message-circle.js";
 import Send from "lucide-react/dist/esm/icons/send.js";
 import { supabase, toSlug } from "../lib/supabase";
+import { useLang } from "../context/LangContext";
+
+const BLOCKED_WORDS = [
+  "fuck", "shit", "bitch", "ass", "asshole", "dick", "cunt", "nigger", "nigga",
+  "faggot", "retard", "whore", "slut", "bastard", "damn", "hell", "piss",
+  "시발", "씨발", "병신", "개새끼", "좆", "보지", "자지", "섹스", "섹x", "존나",
+  "개년", "창녀", "걸레", "미친놈", "미친년", "새끼",
+];
+
+function containsProfanity(text) {
+  const lower = text.toLowerCase();
+  return BLOCKED_WORDS.some((w) => lower.includes(w));
+}
+
+const t = {
+  en: {
+    noComments: "No comments yet. Be the first!",
+    namePlaceholder: "Your name (optional)",
+    commentPlaceholder: "Add a comment...",
+    profanityWarning: "Please keep it respectful.",
+  },
+  ko: {
+    noComments: "아직 댓글이 없어요. 첫 댓글을 남겨보세요!",
+    namePlaceholder: "이름 (선택)",
+    commentPlaceholder: "댓글 달기...",
+    profanityWarning: "예의 바른 댓글을 달아주세요.",
+  },
+};
 
 function useLikes(projectId) {
   const [count, setCount] = useState(0);
@@ -84,11 +112,14 @@ function useComments(projectId) {
 }
 
 export default function ProjectModal({ project, onClose }) {
+  const lang = useLang();
+  const i18n = t[lang];
   const projectId = project ? toSlug(project.title) : null;
   const { count: likeCount, liked, toggleLike } = useLikes(projectId);
   const { comments, addComment } = useComments(projectId);
   const [commentAuthor, setCommentAuthor] = useState("");
   const [commentBody, setCommentBody] = useState("");
+  const [profanityError, setProfanityError] = useState(false);
 
   useEffect(() => {
     const handleKey = (e) => { if (e.key === "Escape") onClose(); };
@@ -99,6 +130,11 @@ export default function ProjectModal({ project, onClose }) {
   const handleComment = async (e) => {
     e.preventDefault();
     if (!commentBody.trim()) return;
+    if (containsProfanity(commentBody) || containsProfanity(commentAuthor)) {
+      setProfanityError(true);
+      return;
+    }
+    setProfanityError(false);
     await addComment(commentAuthor, commentBody.trim());
     setCommentBody("");
   };
@@ -183,7 +219,7 @@ export default function ProjectModal({ project, onClose }) {
               {/* Comments list */}
               <div className="px-5 py-3 flex flex-col gap-3 max-h-48 overflow-y-auto">
                 {comments.length === 0 ? (
-                  <p className="text-xs text-gray-400 dark:text-gray-600 text-center py-2">No comments yet. Be the first!</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-600 text-center py-2">{i18n.noComments}</p>
                 ) : (
                   comments.map((c) => (
                     <div key={c.id} className="flex gap-2">
@@ -204,8 +240,8 @@ export default function ProjectModal({ project, onClose }) {
                 <input
                   type="text"
                   value={commentAuthor}
-                  onChange={(e) => setCommentAuthor(e.target.value)}
-                  placeholder="Your name (optional)"
+                  onChange={(e) => { setCommentAuthor(e.target.value); setProfanityError(false); }}
+                  placeholder={i18n.namePlaceholder}
                   className="text-xs bg-transparent border-none outline-none text-gray-500 dark:text-gray-400 placeholder-gray-400"
                   maxLength={40}
                 />
@@ -213,8 +249,8 @@ export default function ProjectModal({ project, onClose }) {
                   <input
                     type="text"
                     value={commentBody}
-                    onChange={(e) => setCommentBody(e.target.value)}
-                    placeholder="Add a comment..."
+                    onChange={(e) => { setCommentBody(e.target.value); setProfanityError(false); }}
+                    placeholder={i18n.commentPlaceholder}
                     className="flex-1 text-sm bg-transparent outline-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600"
                     maxLength={280}
                   />
@@ -226,6 +262,9 @@ export default function ProjectModal({ project, onClose }) {
                     <Send size={16} />
                   </button>
                 </div>
+                {profanityError && (
+                  <p className="text-red-500 text-xs">{i18n.profanityWarning}</p>
+                )}
               </form>
             </div>
           </motion.div>

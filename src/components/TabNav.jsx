@@ -3,9 +3,9 @@ import Grid from "lucide-react/dist/esm/icons/grid.js";
 import Bookmark from "lucide-react/dist/esm/icons/bookmark.js";
 import Code2 from "lucide-react/dist/esm/icons/code-2.js";
 const tabs = [
-  { id: "projects",  icon: Grid,     en: "Posts",    ko: "포스트" },
-  { id: "experience",icon: Bookmark, en: "Saved",    ko: "저장됨" },
-  { id: "skills",    icon: Code2,    en: "Reels",    ko: "릴스" },
+  { id: "projects",  icon: Grid,     en: "Projects",    ko: "프로젝트" },
+  { id: "experience",icon: Bookmark, en: "Experience",    ko: "경험" },
+  { id: "skills",    icon: Code2,    en: "Skills",    ko: "스킬" },
 ];
 
 export default function TabNav({ activeTab, setActiveTab, lang }) {
