@@ -2,11 +2,13 @@ import { Sun, Moon } from "lucide-react";
 import Grid from "lucide-react/dist/esm/icons/grid.js";
 import Bookmark from "lucide-react/dist/esm/icons/bookmark.js";
 import Code2 from "lucide-react/dist/esm/icons/code-2.js";
+import Compass from "lucide-react/dist/esm/icons/compass.js";
 
 const navItems = [
   { id: "projects", icon: Grid, label: "Projects" },
   { id: "experience", icon: Bookmark, label: "Experience" },
   { id: "skills", icon: Code2, label: "Skills" },
+  { id: "explore", icon: Compass, label: "Explore" },
 ];
 
 export default function Navigation({ toggleTheme, dark, activeTab, setActiveTab }) {

@@ -19,3 +19,13 @@
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes exploreScrollUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes exploreScrollDown {
+  0%   { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
