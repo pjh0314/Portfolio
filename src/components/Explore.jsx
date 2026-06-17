@@ -54,6 +54,7 @@ function PhotoModal({ photos, index, onClose, onNav, likedMap, onLike }) {
         (p) => setComments((prev) => [...prev, p.new]))
       .subscribe();
     return () => supabase.removeChannel(ch);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photo?.id]);
 
   useEffect(() => { commentsEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [comments]);
